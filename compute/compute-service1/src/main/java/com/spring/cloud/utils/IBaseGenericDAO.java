@@ -1,5 +1,7 @@
 package com.spring.cloud.utils;
 
+import com.spring.cloud.entity.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * @param <ID> ID类型 ，如：String、Long、Integer 等
  * @author 赵士杰
  */
-public interface IBaseGenericDAO<T, ID extends Serializable> {
+public interface IBaseGenericDAO<T extends BaseEntity, ID extends Serializable> {
 
     /**
      * 保存（持久化）对象

@@ -1,0 +1,1174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yunqiandai.crm.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.yunqiandai.crm.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="staff_id" property="staffId" jdbcType="INTEGER"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="first_call_time" property="firstCallTime" jdbcType="TIMESTAMP"/>
+        <result column="last_call_time" property="lastCallTime" jdbcType="TIMESTAMP"/>
+        <result column="user_type" property="userType" jdbcType="INTEGER"/>
+        <result column="task_id" property="taskId" jdbcType="INTEGER"/>
+        <result column="operator_id" property="operatorId" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+        <result column="user_source" property="userSource" jdbcType="VARCHAR"/>
+        <result column="intent" property="intent" jdbcType="VARCHAR"/>
+        <result column="region" property="region" jdbcType="VARCHAR"/>
+        <result column="id_no" property="idNo" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="occupation" property="occupation" jdbcType="VARCHAR"/>
+        <result column="remind_time" property="remindTime" jdbcType="TIMESTAMP"/>
+        <result column="remind_status" property="remindStatus" jdbcType="INTEGER"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="imp_staff_id" property="impStaffId" jdbcType="INTEGER"/>
+        <result column="imp_task_id" property="impTaskId" jdbcType="INTEGER"/>
+        <result column="user_log_id" property="userLogId" jdbcType="INTEGER"/>
+        <result column="keep_time" property="keepTime" jdbcType="TIMESTAMP"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="allot_time" property="allotTime" jdbcType="TIMESTAMP"/>
+        <result column="extend" property="extend" jdbcType="INTEGER"/>
+        <result column="taskName" property="taskName" jdbcType="VARCHAR"/>
+        <result column="isPush" property="isPush" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, staff_id, real_name, mobile_phone, email, first_call_time, last_call_time,
+        user_type, task_id, operator_id, status, create_time, update_time, version, user_source,
+        intent, region, id_no, sex, occupation, remind_time, remind_status, remark, imp_staff_id,
+        imp_task_id, user_log_id, keep_time, age, allot_time,extend, isPush
+    </sql>
+
+    <resultMap id="Result_MOBY_Map" type="com.yunqiandai.crm.common.dto.MobyNotAllotDto">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="first_call_time" property="firstCallTime" jdbcType="TIMESTAMP"/>
+        <result column="last_call_time" property="lastCallTime" jdbcType="TIMESTAMP"/>
+        <result column="user_source" property="userSource" jdbcType="VARCHAR"/>
+        <result column="intent_desc" property="intentName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--我的导入列表所对应的属性关系-->
+    <resultMap id="ImpResultMap" type="com.yunqiandai.crm.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="user_mobile_phone" property="mobilePhone" jdbcType="VARCHAR"/>
+        <association property="task" column="task_id" javaType="com.yunqiandai.crm.entity.Task">
+            <id column="task_id" property="id" jdbcType="INTEGER"/>
+            <result column="task_name" property="name" jdbcType="VARCHAR"/>
+            <result column="task_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        </association>
+        <association property="sysStaff" column="staff_id" javaType="com.yunqiandai.crm.entity.SysStaff">
+            <id column="staff_id" property="id" jdbcType="INTEGER"/>
+            <result column="staff_real_name" property="realName" jdbcType="VARCHAR"/>
+            <result column="staff_login_name" property="loginName" jdbcType="VARCHAR"/>
+        </association>
+        <association property="org" column="org_id" javaType="com.yunqiandai.crm.entity.SysOrganization">
+            <id column="org_id" property="id" jdbcType="INTEGER"/>
+            <result column="org_name" property="name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="role" column="role_id" javaType="com.yunqiandai.crm.entity.SysRole">
+            <id column="role_id" property="id" jdbcType="INTEGER"/>
+            <result column="role_name" property="name" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <resultMap id="MOBYToMemberResultMap" type="com.yunqiandai.crm.common.dto.MOBYtoMemberDto">
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="umi_register_time" property="registerTime" jdbcType="TIMESTAMP"/>
+        <result column="umi_user_code" property="userCode" jdbcType="VARCHAR"/>
+        <result column="staff_real_name" property="staffRealName" jdbcType="VARCHAR"/>
+        <result column="staff_login_name" property="staffLoginName" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Left_Column_List">
+        u.id, u.user_id, u.staff_id, u.real_name, u.mobile_phone, u.email, u.first_call_time, u.last_call_time,
+        u.user_type, u.task_id, u.operator_id, u.status, u.create_time, u.update_time, u.version, u.user_source,
+        s.name ASC intent, u.region, u.sex, u.id_no, u.occupation, u.remind_time, u.remind_status,u.taskName as task_name,
+        u.allot_time as task_time
+    </sql>
+    <sql id="MoByBlackTable">
+        from `user` u
+        <if test="page != null or staffRealName != null or staffLoginName != null or orgId != null or roleId != null">
+            left join sys_staff s
+            on u.operator_id = s.id
+            left join sys_organization so
+            on s.org_id=so.id
+            left join sys_role sr
+            on s.role_id = sr.id
+        </if>
+    </sql>
+    <sql id="MoByBlackWhere">
+        where 1=1
+        <if test="blackBeginTime != null">
+            and u.update_time &gt;= #{blackBeginTime}
+        </if>
+        <if test="blackEndTime != null">
+            and u.update_time &lt;= #{blackEndTime}
+        </if>
+        <if test="staffRealName != null">
+            and s.real_name = #{staffRealName}
+        </if>
+        <if test="staffLoginName != null">
+            and s.login_name = #{staffLoginName}
+        </if>
+        <if test="orgId != null">
+            and so.id = #{orgId}
+        </if>
+        <if test="roleId != null">
+            and sr.id = #{roleId}
+        </if>
+        and u.status=4
+        and u.user_type=1
+        and locate (#{extend},u.extend)
+    </sql>
+    <sql id="table_query_moBai">
+        FROM
+        `user` u
+        <if test="page != null">
+            LEFT JOIN sys_dic s ON u.intent = s.id
+        </if>
+    </sql>
+    <sql id="where_query_moBai">
+        where 1=1
+        <if test="impStartDate != null">
+            AND u.allot_time &gt;= #{impStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="impEndDate != null">
+            AND u.allot_time &lt;= #{impEndDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="userMobilePhone != null">
+            AND u.mobile_phone in (
+            <foreach collection="userMobilePhone" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="userRealName != null">
+            AND u.real_name in (
+            <foreach collection="userRealName" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="taskName != null and taskName!=''">
+            AND u.taskName like concat('%', '#',#{taskName}, '%') escape '#'
+        </if>
+        <if test="userSource != null and userSource != '' ">
+            AND u.user_source = #{userSource}
+        </if>
+        <if test="intent != null">
+            AND u.intent = #{intent}
+        </if>
+        <if test="lastStartCallTime != null ">
+            AND u.last_call_time &gt;= #{lastStartCallTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="lastEndCallTime != null ">
+            AND u.last_call_time &lt;= #{lastEndCallTime,jdbcType=TIMESTAMP}
+        </if>
+        AND u.user_type = 1
+        AND u.staff_id = #{staffId}
+        and u.`status` = 1
+    </sql>
+
+    <sql id="query_Condition">
+        <if test="id!=null">
+            AND id in
+            <foreach item="item" collection="id" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="staffId!=null">
+            AND staff_id=#{staffId}
+        </if>
+        <if test="status!=null">
+            AND status IN
+            <foreach item="item" collection="status" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="mobilePhone!=null and mobilePhone!=''">
+            AND mobile_phone=#{mobilePhone}
+        </if>
+        <if test="userName!=null and userName!=''">
+            AND real_name=#{userName}
+        </if>
+        <if test="allocateStartTime!=null">
+            AND update_time &gt;= #{allocateStartTime}
+        </if>
+        <if test="allocateEndTime!=null">
+            AND update_time &lt;= #{allocateEndTime}
+        </if>
+    </sql>
+
+    <sql id="query_call_list_where">
+        WHERE
+        1=1
+        <if test="intent != null ">
+            and u.intent = #{intent}
+        </if>
+        <if test="taskName != null ">
+            and u.taskName like concat('%', '#',#{taskName}, '%') escape '#'
+        </if>
+        <if test="mobilePhone != null ">
+            and u.mobile_phone in
+            (
+            <foreach collection="mobilePhone" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="userName != null ">
+            and u.real_name IN
+            (
+            <foreach collection="userName" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="startDateTime !=null">
+            and u.allot_time &gt;= #{startDateTime}
+        </if>
+        <if test="endDateTime!=null">
+            and u.allot_time &lt;= #{endDateTime}
+        </if>
+        AND u.staff_id=#{staffId}
+        <if test="status != null">
+            AND u.status = #{status}
+        </if>
+        <if test="status == null">
+            AND u.status &lt; 4
+        </if>
+        AND u.user_type = 1
+        AND u.remind_status = 0
+    </sql>
+
+    <select id="queryCallCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        count(1)
+        from `user` u
+        <include refid="query_call_list_where"/>
+    </select>
+    <sql id="query_time_where">
+        where u.user_type=1
+        and u.staff_id=#{staffId}
+        AND u.remind_status =1
+    </sql>
+    <select id="queryTimeCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        count(1)
+        from `user` u
+        <include refid="query_time_where"/>
+    </select>
+    <select id="queryTimeRemind" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        u.id as id,
+        u.taskName as taskName,
+        u.allot_time as taskTime,
+        u.status as status,
+        u.real_name as real_name,
+        u.mobile_phone as mobile_phone,
+        u.last_call_time as last_call_time,
+        u.remark as remark,
+        u.intent as intent,
+        u.remind_time as remindTime
+        from `user` u
+        <include refid="query_time_where"/>
+        order by u.remind_time ASC
+        limit #{page.rowIndex},#{page.rowSize}
+    </select>
+
+    <select id="queryPushTimeRemind4MB" parameterType="integer"
+            resultType="com.yunqiandai.crm.common.dto.PushTimeRemindDto">
+        select
+          u.id ,
+          u.real_name messageSubject,
+          u.remind_time remindTime
+        FROM
+          user u
+         where u.user_type=1
+            and u.staff_id=#{staffId}
+            AND u.isPush = 1
+            AND u.remind_status =1
+        order by u.remind_time ASC;
+    </select>
+
+    <select id="queryCallList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        u.id as id,
+        u.user_id AS userId,
+        u.taskName as taskName,
+        u.allot_time as taskTime,
+        u.status as status,
+        u.real_name as real_name,
+        u.mobile_phone as mobile_phone,
+        u.last_call_time as last_call_time,
+        u.remark as remark,
+        u.intent as intent
+        from `user` u
+        <include refid="query_call_list_where"/>
+        ORDER BY u.last_call_time ASC,u.allot_time ASC,u.id ASC
+        limit #{rowIndex},#{rowSize}
+    </select>
+    <select id="queryUserByStaffId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT task_id,staff_id from  `user` where staff_id=#{staffId}
+    </select>
+    <select id="queryMoByCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        count(1)
+        <include refid="table_query_moBai"/>
+        <include refid="where_query_moBai"/>
+    </select>
+
+    <select id="queryUserListMoBy" resultType="com.yunqiandai.crm.common.dto.MobyNotAllotDto"
+            parameterType="java.util.Map">
+        select
+        u.taskName as taskName,
+        u.allot_time as taskTime,
+        u.user_source as userSource,
+        u.real_name as userRealName,
+        u.mobile_phone as userMobilePhone,
+        u.email as userEmail,
+        s.name as intentDesc,
+        u.last_call_time as userLastCallTime,
+        u.id as id
+        <include refid="table_query_moBai"/>
+        <include refid="where_query_moBai"/>
+        ORDER BY u.last_call_time ASC,u.allot_time ASC,u.id ASC
+        limit #{page.rowIndex},#{page.rowSize}
+    </select>
+    <insert id="insert" parameterType="com.yunqiandai.crm.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into `user`
+        (
+        user_id,
+        staff_id,
+        real_name,
+        mobile_phone,
+        email,
+        first_call_time,
+        last_call_time,
+        user_type,
+        task_id,
+        operator_id,
+        status,
+        create_time,
+        update_time,
+        version
+        )
+        values
+        (
+        #{userId,jdbcType=INTEGER},
+        #{staffId,jdbcType=INTEGER},
+        #{realName,jdbcType=VARCHAR},
+        #{mobilePhone,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR},
+        #{firstCallTime,jdbcType=TIMESTAMP},
+        #{lastCallTime,jdbcType=TIMESTAMP},
+        #{userType,jdbcType=INTEGER},
+        #{taskId,jdbcType=INTEGER},
+        #{operatorId,jdbcType=INTEGER},
+        #{status,jdbcType=INTEGER},
+        now(),
+        now(),
+        1
+        )
+    </insert>
+
+    <update id="updateByUserId" parameterType="com.yunqiandai.crm.entity.User">
+        update `user`
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="staffId != null">
+                staff_id = #{staffId,jdbcType=INTEGER},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilePhone != null">
+                mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="firstCallTime != null">
+                first_call_time = #{firstCallTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastCallTime != null">
+                last_call_time = #{lastCallTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="taskId != null">
+                task_id = #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="operatorId != null">
+                operator_id = #{operatorId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="idNo != null">
+                id_no = #{idNo,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            update_time = now(),
+            version = version + 1
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateById" parameterType="com.yunqiandai.crm.entity.User">
+        update `user`
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="staffId != null">
+                staff_id = #{staffId,jdbcType=INTEGER},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilePhone != null">
+                mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="firstCallTime != null">
+                first_call_time = #{firstCallTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastCallTime != null">
+                last_call_time = #{lastCallTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="taskId != null">
+                task_id = #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="operatorId != null">
+                operator_id = #{operatorId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="idNo != null">
+                id_no = #{idNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userLogId != null">
+                user_log_id = #{userLogId,jdbcType=INTEGER},
+            </if>
+            <if test="extend!=null">
+                extend = #{extend,jdbcType=INTEGER},
+            </if>
+            <if test="keepTime!=null">
+                keep_time = #{keepTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="isPush != null">
+                isPush = #{isPush,jdbcType=INTEGER},
+            </if>
+            <if test="remindTime !=null">
+                remind_time = #{remindTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remindStatus != null">
+                remind_status = #{remindStatus,jdbcType=INTEGER},
+            </if>
+            update_time = now(),
+            version = version + 1
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+        <if test="staffIds!=null">
+            and staff_id in
+            <foreach collection="staffIds" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+
+    <select id="findUserByMobilePhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from `user`
+        where mobile_phone = #{mobilePhone,jdbcType=VARCHAR} ORDER BY create_time DESC limit 1;
+    </select>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from `user`
+        where id = #{id,jdbcType=INTEGER}
+        AND status != 5
+    </select>
+    <update id="updateByAssociatedId" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update `user` SET
+            staff_id=#{item.staffId},
+            task_id=#{item.taskId},
+            <if test="item.status!=null">
+                status = #{item.status},
+            </if>
+            operator_id=#{item.operatorId},
+            <if test="item.userLogId!=null">
+                user_log_id=${item.userLogId},
+            </if>
+            extend = #{item.extend},
+            update_time=now(),
+            allot_time =now(),
+            version =version + 1,
+            taskName = #{item.taskName}
+            where id = #{item.id} and status=1
+        </foreach>
+    </update>
+
+
+    <update id="updateRemind" parameterType="java.util.Map">
+        UPDATE `user` u
+        SET
+            u.remind_status= #{remindStatus} ,
+            u.remind_time = #{date},
+            u.intent=#{intent},
+            u.remark=#{remark},
+            u.isPush = #{isPush},
+            u.update_time= now(),
+            u.version = u.version + 1
+        WHERE u.id = #{id}
+    </update>
+
+
+    <insert id="insertImpUsers" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into `user`
+        (
+        staff_id,
+        real_name,
+        mobile_phone,
+        email,
+        user_type,
+        task_id,
+        operator_id,
+        status,
+        create_time,
+        update_time,
+        version,
+        region,
+        sex,
+        id_no,
+        occupation,
+        remind_status,
+        imp_task_id,
+        imp_staff_id,
+        taskName,
+        allot_time
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.staffId,jdbcType=INTEGER},
+            #{item.realName,jdbcType=VARCHAR},
+            #{item.mobilePhone,jdbcType=VARCHAR},
+            #{item.email,jdbcType=VARCHAR},
+            #{item.userType,jdbcType=INTEGER},
+            #{item.taskId,jdbcType=INTEGER},
+            #{item.operatorId,jdbcType=INTEGER},
+            #{item.status,jdbcType=INTEGER},
+            now(),
+            now(),
+            1,
+            #{item.region,jdbcType=VARCHAR},
+            #{item.sex,jdbcType=INTEGER},
+            #{item.idNo,jdbcType=VARCHAR},
+            #{item.occupation,jdbcType=VARCHAR},
+            0,
+            #{item.impTaskId,jdbcType=INTEGER},
+            #{item.impStaffId,jdbcType=INTEGER},
+            #{item.taskName},
+            now()
+            )
+        </foreach>
+    </insert>
+
+
+    <update id="update4CallTime" parameterType="com.yunqiandai.crm.entity.User">
+         UPDATE `user` u
+            SET
+                first_call_time = #{firstCallTime,jdbcType=TIMESTAMP},
+                last_call_time = #{lastCallTime,jdbcType=TIMESTAMP},
+                u.update_time= now()
+            WHERE u.mobile_phone = #{mobilePhone} and u.id = #{id}
+    </update>
+
+    <select id="queryImpUsersCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+        count(u.id)
+        <include refid="has_impList_table"/>
+        <include refid="has_impList_where"/>
+    </select>
+    <select id="queryImpUsersList" parameterType="java.util.Map" resultMap="ImpResultMap">
+        SELECT
+        t.id AS task_id,
+        t.create_time AS task_create_time,
+        t.`name` AS task_name,
+        s.id AS staff_id,
+        s.real_name AS staff_real_name,
+        s.login_name AS staff_login_name,
+        so.id AS org_id,
+        so.`name` AS org_name,
+        sr.id AS role_id,
+        sr.`name` AS role_name,
+        u.id,
+        u.real_name AS user_real_name,
+        u.mobile_phone AS user_mobile_phone
+        <include refid="has_impList_table"/>
+        <include refid="has_impList_where"/>
+        ORDER BY t.create_time DESC
+        <if test="page != null">
+            limit #{page.rowIndex},#{page.rowSize}
+        </if>
+
+    </select>
+    <sql id="has_impList_table">
+        FROM
+        `user` u
+        LEFT JOIN task t ON u.imp_task_id = t.id
+        LEFT JOIN sys_staff s on u.imp_staff_id = s.id
+        LEFT JOIN sys_organization so on s.org_id = so.id
+        LEFT JOIN sys_role sr on s.role_id = sr.id
+    </sql>
+    <sql id="has_impList_where">
+        <where>
+            1=1
+            <if test="impStartDate != null">
+                AND t.create_time &gt;= #{impStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="impEndDate != null">
+                AND t.create_time &lt;= #{impEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="userRealName != null and userRealName != ''">
+                AND u.real_name like concat('%', '#',#{userRealName}, '%') escape '#'
+            </if>
+            <if test="phoneNo != null and phoneNo != ''">
+                AND u.mobile_phone = #{phoneNo}
+            </if>
+            <if test="staffRealName != null and staffRealName != ''">
+                AND s.real_name like concat('%', '#',#{staffRealName}, '%') escape '#'
+            </if>
+            <if test="staffId != null">
+                AND s.login_name = #{staffId}
+            </if>
+            <if test="orgId != null">
+                AND s.org_id = #{orgId}
+            </if>
+            <if test="roleId != null">
+                AND s.role_id = #{roleId}
+            </if>
+            <if test="staffIds != null">
+                AND s.id in
+                <foreach item="item" index="index" collection="staffIds" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+
+    </sql>
+    <sql id="table_query_mobyToMember">
+        FROM
+        user_member_info umi
+        <if test="page !=null or staffLoginName !=null or staffRealName!=null or orgId !=null or roleId != null or export!=null ">
+            LEFT JOIN
+            sys_staff ss ON ss.id = umi.register_staff_id
+            LEFT JOIN
+            sys_organization so ON so.id = ss.org_id
+            LEFT JOIN
+            sys_role sr ON sr.id = ss.role_id
+        </if>
+    </sql>
+    <sql id="where_query_moByToMember">
+        where umi.is_trans=1
+        AND umi.filter_type =3
+        <if test="extend != null">
+            and LOCATE(#{extend},umi.extend)
+        </if>
+        <if test="userCode != null">
+            and umi.userCode = #{userCode}
+        </if>
+        <if test="registStartTime != null">
+            and umi.register_time &gt;= #{registStartTime}
+        </if>
+        <if test="registEndTime != null">
+            and umi.register_time &lt;= #{registEndTime}
+        </if>
+        <if test="staffLoginName != null">
+            and ss.login_name = #{staffLoginName}
+        </if>
+        <if test="staffRealName != null">
+            and ss.real_name = #{staffRealName}
+        </if>
+        <if test="orgId != null">
+            and so.id = #{orgId}
+        </if>
+        <if test="roleId != null">
+            and sr.id = #{roleId}
+        </if>
+    </sql>
+    <select id="queryMOBYtoMemberList" parameterType="java.util.Map" resultMap="MOBYToMemberResultMap">
+        SELECT
+        umi.register_time umi_register_time,
+        umi.userCode umi_user_code,
+        ss.real_name staff_real_name,
+        ss.login_name staff_login_name,
+        so.name org_name,
+        sr.name role_name
+        <include refid="table_query_mobyToMember"/>
+        <include refid="where_query_moByToMember"/>
+        ORDER BY umi.register_time DESC
+        <if test="page != null">
+            limit #{page.rowIndex},#{page.rowSize}
+        </if>
+    </select>
+    <select id="queryMOBYtoMemberExport" parameterType="java.util.Map"
+            resultType="com.yunqiandai.crm.common.dto.Download4MOBYtoMemberDto">
+        SELECT
+        umi.register_time registerTime,
+        umi.userCode userCode,
+        ss.real_name staffRealName,
+        ss.login_name staffLoginName,
+        so.name orgName,
+        sr.name roleName
+        <include refid="table_query_mobyToMember"/>
+        <include refid="where_query_moByToMember"/>
+        ORDER BY umi.register_time DESC
+    </select>
+    <select id="queryMOBYtoMemberCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        <include refid="table_query_mobyToMember"/>
+        <include refid="where_query_moByToMember"/>
+    </select>
+
+
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM `user`
+        where user_id = #{userId}
+    </select>
+    <update id="updateByMobilePhone" parameterType="com.yunqiandai.crm.entity.User">
+        update `user`
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="staffId != null">
+                staff_id = #{staffId,jdbcType=INTEGER},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilePhone != null">
+                mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="firstCallTime != null">
+                first_call_time = #{firstCallTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastCallTime != null">
+                last_call_time = #{lastCallTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="taskId != null">
+                task_id = #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="operatorId != null">
+                operator_id = #{operatorId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="idNo != null">
+                id_no = #{idNo,jdbcType=VARCHAR},
+            </if>
+            <if test="remindStatus != null">
+                remind_status = #{remindStatus,jdbcType=INTEGER},
+            </if>
+            update_time = now(),
+            version = version + 1
+        </set>
+        where mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+    </update>
+
+
+    <select id="findUsersByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        id,staff_id,extend
+        from `user`
+        where
+        1=1
+        <if test="userIds != null">
+            and id in
+            (
+            <foreach collection="userIds" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="staffIds != null">
+            AND staff_id in
+            <foreach item="item" collection="staffIds" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="userType != null">
+            and user_type = #{userType}
+        </if>
+        <if test="userStatus != null">
+            AND `status` = #{userStatus}
+        </if>
+        <if test="keepTime != null">
+            AND keep_time &lt;= #{keepTime}
+        </if>
+        <if test="allotTime != null">
+            AND allot_time &lt;= #{allotTime}
+        </if>
+        <if test="userAllStatus != null">
+            AND status in (
+            <foreach collection="userAllStatus" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="notStaffId != null">
+            AND staff_id != #{notStaffId}
+        </if>
+    </select>
+
+    <update id="updateList" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update `user`
+            <set>
+                <if test="item.taskName !=null">
+                    taskName = #{item.taskName},
+                </if>
+                <if test="item.staffId != null">
+                    staff_id = #{item.staffId},
+                </if>
+                <if test="item.status != null">
+                    `status` = #{item.status},
+                </if>
+                <if test="item.remindStatus != null">
+                    remind_status = #{item.remindStatus},
+                </if>
+                <if test="item.extend != null">
+                    extend = #{item.extend},
+                </if>
+                <if test="item.taskTime!=null">
+                    allot_time=#{item.taskTime},
+                </if>
+                <if test="item.taskId!=null">
+                    task_id=#{item.taskId},
+                </if>
+
+                update_time = now(),
+                version = version + 1
+            </set>
+            where id = ${item.id}
+        </foreach>
+    </update>
+    <update id="updateBatchFindById" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update `user`
+            <set>
+                <if test="item.extend!=null">
+                    extend = #{item.extend},
+                </if>
+                <if test="item.userId != null">
+                    user_id = #{item.userId,jdbcType=INTEGER},
+                </if>
+                <if test="item.staffId != null">
+                    staff_id = #{item.staffId,jdbcType=INTEGER},
+                </if>
+                <if test="item.realName != null">
+                    real_name = #{item.realName,jdbcType=VARCHAR},
+                </if>
+                <if test="item.mobilePhone != null">
+                    mobile_phone = #{item.mobilePhone,jdbcType=VARCHAR},
+                </if>
+                <if test="item.email != null">
+                    email = #{item.email,jdbcType=VARCHAR},
+                </if>
+                <if test="item.firstCallTime != null">
+                    first_call_time = #{item.firstCallTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.lastCallTime != null">
+                    last_call_time = #{item.lastCallTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.userType != null">
+                    user_type = #{item.userType,jdbcType=INTEGER},
+                </if>
+                <if test="item.taskId != null">
+                    task_id = #{item.taskId,jdbcType=INTEGER},
+                </if>
+                <if test="item.operatorId != null">
+                    operator_id = #{item.operatorId,jdbcType=INTEGER},
+                </if>
+                <if test="item.status != null">
+                    status = #{item.status,jdbcType=INTEGER},
+                </if>
+                <if test="item.idNo != null">
+                    id_no = #{item.idNo,jdbcType=VARCHAR},
+                </if>
+                <if test="item.userLogId != null">
+                    user_log_id = #{item.userLogId,jdbcType=INTEGER},
+                </if>
+                <if test="item.remindStatus != null">
+                    remind_status = #{item.remindStatus},
+                </if>
+                update_time = now(),
+                version = version + 1
+            </set>
+            where id = ${item.id}
+            <if test="item.userType!=null">
+                and user_type = #{item.userType,jdbcType=INTEGER}
+            </if>
+        </foreach>
+    </update>
+    <update id="updateBatchReceiveMoBy" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update `user`
+            <set>
+                extend = #{item.extend},
+                <if test="item.userId != null">
+                    user_id = #{item.userId,jdbcType=INTEGER},
+                </if>
+                <if test="item.staffId != null">
+                    staff_id = #{item.staffId,jdbcType=INTEGER},
+                </if>
+                <if test="item.realName != null">
+                    real_name = #{item.realName,jdbcType=VARCHAR},
+                </if>
+                <if test="item.mobilePhone != null">
+                    mobile_phone = #{item.mobilePhone,jdbcType=VARCHAR},
+                </if>
+                <if test="item.email != null">
+                    email = #{item.email,jdbcType=VARCHAR},
+                </if>
+                <if test="item.firstCallTime != null">
+                    first_call_time = #{item.firstCallTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.lastCallTime != null">
+                    last_call_time = #{item.lastCallTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.userType != null">
+                    user_type = #{item.userType,jdbcType=INTEGER},
+                </if>
+                <if test="item.taskId != null">
+                    task_id = #{item.taskId,jdbcType=INTEGER},
+                </if>
+                <if test="item.operatorId != null">
+                    operator_id = #{item.operatorId,jdbcType=INTEGER},
+                </if>
+                <if test="item.status != null">
+                    status = #{item.status,jdbcType=INTEGER},
+                </if>
+                <if test="item.idNo != null">
+                    id_no = #{item.idNo,jdbcType=VARCHAR},
+                </if>
+                <if test="item.userLogId != null">
+                    user_log_id = #{item.userLogId,jdbcType=INTEGER},
+                </if>
+                <if test="item.remindStatus != null">
+                    remind_status = #{item.remindStatus},
+                </if>
+                update_time = now(),
+                version = version + 1
+            </set>
+            where id = ${item.id}
+            <if test="item.userType!=null">
+                and user_type = #{item.userType,jdbcType=INTEGER}
+            </if>
+        </foreach>
+    </update>
+
+    <select id="search4TopLevelInfo" parameterType="map" resultType="com.yunqiandai.crm.entity.User">
+        SELECT u.id id ,u.user_id userId
+        FROM `user` u,user_member_info ui
+        WHERE u.user_id = ui.user_id
+        AND ui.userCode IN
+        <foreach item="item" collection="userCode" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND ui.level= #{memberTopLevel}
+        AND u.staff_id =#{staffId}
+    </select>
+    <update id="updateBatchCommonById" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update `user`
+            <set>
+                <if test="item.staffId !=null and item.staffId !=''">
+                    staff_id = #{item.staffId},
+                </if>
+                <if test="item.operatorId !=null and item.operatorId !=''">
+                    operator_id = #{item.operatorId},
+                </if>
+                <if test="item.userLogId !=null and item.userLogId !=''">
+                    user_log_id = #{item.userLogId},
+                </if>
+                <if test="item.allotTime !=null ">
+                    allot_time = #{item.allotTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.status != null">
+                    status = #{item.status,jdbcType=INTEGER},
+                </if>
+                <if test="item.taskId != null">
+                    task_id = #{item.taskId,jdbcType=INTEGER},
+                </if>
+                update_time = now(),
+                version = version + 1
+            </set>
+            where id = #{item.id}
+        </foreach>
+
+    </update>
+    <select id="queryUserListByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM
+        user where id in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryMoByBlackCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        count(1)
+        <include refid="MoByBlackTable"/>
+        <include refid="MoByBlackWhere"/>
+    </select>
+    <select id="queryMoByBlackList" parameterType="java.util.Map"
+            resultType="com.yunqiandai.crm.common.dto.UserMobyBlackDto">
+        select
+        u.id as id,
+        s.real_name as staffName,
+        s.login_name as staffLoginName,
+        u.update_time as userLogCreateTime,
+        u.remark as userLogContent,
+        u.real_name as userRealName,
+        u.mobile_phone as userMobilePhone,
+        u.sex as sex
+        <include refid="MoByBlackTable"/>
+        <include refid="MoByBlackWhere"/>
+        <if test="page!=null">
+            order by u.update_time desc
+            limit
+            #{page.rowIndex},#{page.rowSize}
+        </if>
+    </select>
+
+
+    <select id="queryCountByStaffIdAndStatus" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT  count(1)
+        from `user`
+        WHERE
+        staff_id = #{staffId}
+        and status = #{status}
+        and user_type = #{userType}
+    </select>
+
+
+    <select id="findUserByMemberLevel" parameterType="integer" resultType="com.yunqiandai.crm.entity.User">
+          SELECT
+            u.id id ,u.user_id userId
+            FROM
+             `user` u , user_member_info ui
+            WHERE ui.member_level = #{vipLevelUser}
+              AND u.staff_id = #{currentStaffId}
+              AND u.user_id = ui.user_id
+    </select>
+    <select id="findByStaffId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      SELECT
+        count(1)
+        FROM
+         `user`
+        WHERE staff_id = #{staffId}
+        and user_type=1
+    </select>
+
+    <select id="queryCountByMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        `user`
+        <where>
+            1=1
+            <if test="staffId != null">
+                AND staff_id = #{staffId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="userType != null">
+                AND user_type = #{userType}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryUserListByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        `user`
+        <where>
+            1=1
+            <if test="userStatus != null">
+                AND status = #{status}
+            </if>
+            <if test="userIds != null">
+                and id in
+                (
+                <foreach collection="userIds" item="item" index="index" separator=",">
+                    #{item}
+                </foreach>
+                )
+            </if>
+            <if test="userAllStatus != null">
+                AND `status` IN
+                (
+                <foreach collection="userAllStatus" item="item" index="index" separator=",">
+                    #{item}
+                </foreach>
+                )
+            </if>
+            <if test="userType != null">
+                AND user_type = #{userType}
+            </if>
+            <if test="extend != null">
+                AND LOCATE(#{extend},extend)
+            </if>
+        </where>
+    </select>
+
+    <select id="findAllPhones" resultType="java.lang.String">
+        SELECT DISTINCT(u.mobile_phone) FROM `user` u;
+    </select>
+</mapper>

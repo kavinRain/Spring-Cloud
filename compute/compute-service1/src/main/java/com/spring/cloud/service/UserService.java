@@ -9,12 +9,6 @@ import org.springframework.stereotype.Service;
  * Created by Administrator on 2017/1/4.
  */
 @Service
-public class UserService {
+public class UserService extends BaseService<User> {
 
-    @Autowired
-    private UserMapper userMapper;
-
-    public User findById(Integer id) {
-        return userMapper.getById(id);
-    }
 }

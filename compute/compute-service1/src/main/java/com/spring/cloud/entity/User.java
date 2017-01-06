@@ -1,9 +1,11 @@
 package com.spring.cloud.entity;
 
-import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
 
 /**
  * Created by Administrator on 2017/1/4.
  */
-public class User implements Serializable {
+@ApiModel(value = "用户对象", description = "user")
+public class User extends BaseEntity {
+
 }

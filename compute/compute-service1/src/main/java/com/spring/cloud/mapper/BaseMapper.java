@@ -1,5 +1,6 @@
 package com.spring.cloud.mapper;
 
+import com.spring.cloud.entity.BaseEntity;
 import com.spring.cloud.utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.ResultHandler;
@@ -15,11 +16,11 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/1/4.
  */
-public abstract class BaseMapper<T, ID extends Serializable> extends SqlSessionDaoSupport
+public abstract class BaseMapper<T extends BaseEntity, ID extends Serializable> extends SqlSessionDaoSupport
         implements IBaseGenericDAO<T, ID> {
 
     @Resource
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory){
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         super.setSqlSessionFactory(sqlSessionFactory);
     }
 
@@ -52,7 +53,7 @@ public abstract class BaseMapper<T, ID extends Serializable> extends SqlSessionD
     @SuppressWarnings("unchecked")
     private String getDefaultSqlNamespace() {
         Class<T> clazz = ReflectGeneric.getClassGenericType(this.getClass());
-        String nameSpace = clazz.getName();
+        String nameSpace = clazz.getName()+"Mapper";
         return nameSpace;
     }
 
