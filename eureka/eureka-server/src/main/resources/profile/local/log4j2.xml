@@ -3,9 +3,10 @@
 <configuration status="warn">
 
     <Properties>
-        <Property name="logPath.info">./log/eureka-server/logs/info</Property>
-        <Property name="logPath.warn">./log/eureka-server/logs/warn</Property>
-        <Property name="logPath.error">./log/eureka-server/logs/error</Property>
+        <Property name="project-name">eureka-server</Property>
+        <Property name="logPath.info">./log/${project-name}/logs/info</Property>
+        <Property name="logPath.warn">./log/${project-name}/logs/warn</Property>
+        <Property name="logPath.error">./log/${project-name}/logs/error</Property>
     </Properties>
 
     <appenders>

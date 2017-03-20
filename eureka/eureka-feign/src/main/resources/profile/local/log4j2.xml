@@ -3,7 +3,7 @@
 <configuration status="warn">
 
     <Properties>
-        <Property name="project-name">compute-service2</Property>
+        <Property name="project-name">eureka-feign</Property>
         <Property name="logPath.info">./log/${project-name}/logs/info</Property>
         <Property name="logPath.warn">./log/${project-name}/logs/warn</Property>
         <Property name="logPath.error">./log/${project-name}/logs/error</Property>
