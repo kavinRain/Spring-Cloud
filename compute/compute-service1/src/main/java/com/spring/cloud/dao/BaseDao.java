@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by 柯伟 on 2017/3/21.
  */
-public interface BaseDao {
+interface BaseDao<T, ID> {
 
     /**
      * 获取记录总数

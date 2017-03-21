@@ -14,7 +14,7 @@ import java.util.LinkedHashMap;
  * Created by 柯伟 on 2017/3/21.
  */
 @Transactional
-public abstract class DaoSupport implements BaseDao {
+abstract class DaoSupport<T, ID> implements BaseDao<T, ID> {
 
     @PersistenceContext
     private EntityManager em;

@@ -1,5 +1,8 @@
 package com.spring.cloud.service;
 
+import com.spring.cloud.dao.SysUserDao;
+import com.spring.cloud.entity.SysUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,7 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService extends BaseService {
 
-    public void login(String userName, String password) {
+    @Autowired
+    private SysUserDao sysUserDao;
 
+    public SysUser login(String userName, String password) {
+        return sysUserDao.find(SysUser.class, 1L);
     }
 }
