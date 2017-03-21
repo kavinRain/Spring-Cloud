@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>eureka</artifactId>
+        <groupId>Spring-Cloud-eureka</groupId>
+        <version>${project.version}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>Spring-Cloud-eureka-client</groupId>
+    <artifactId>eureka-client</artifactId>
+    <packaging>pom</packaging>
+    <name>eureka-client</name>
+
+    <modules>
+        <module>eureka-ribbon</module>
+        <module>eureka-feign</module>
+    </modules>
+</project>
