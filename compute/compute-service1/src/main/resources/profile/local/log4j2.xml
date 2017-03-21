@@ -2,9 +2,10 @@
 <configuration status="warn">
 
     <Properties>
-        <Property name="logPath.info">./log/compute-service1/logs/info</Property>
-        <Property name="logPath.warn">./log/compute-service1/logs/warn</Property>
-        <Property name="logPath.error">./log/compute-service1/logs/error</Property>
+        <Property name="project-name">compute-service1</Property>
+        <Property name="logPath.info">./log/${project-name}/logs/info</Property>
+        <Property name="logPath.warn">./log/${project-name}/logs/warn</Property>
+        <Property name="logPath.error">./log/${project-name}/logs/error</Property>
     </Properties>
 
     <appenders>
@@ -18,7 +19,7 @@
                 <ThresholdFilter level="INFO"/>
                 <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
             </Filters>
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
@@ -31,7 +32,7 @@
                 <ThresholdFilter level="WARN"/>
                 <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
             </Filters>
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
