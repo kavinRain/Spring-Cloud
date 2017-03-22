@@ -12,6 +12,7 @@
         <module>compute</module>
         <module>config</module>
         <module>eureka</module>
+        <module>spring-security-oauth2</module>
     </modules>
 
     <parent>
