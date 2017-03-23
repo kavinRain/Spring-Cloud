@@ -14,4 +14,9 @@ public class ComputeClientHystrix implements ComputeClient {
     public Integer add(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b) {
         return -9999;
     }
+
+    @Override
+    public Object login(@RequestParam(value = "userName") String username, @RequestParam(value = "password") String password) {
+        return null;
+    }
 }

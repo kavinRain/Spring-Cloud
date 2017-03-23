@@ -67,10 +67,10 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(clientDetails());
-        clients.inMemory()
-                .withClient("client")
-                .secret("secret")
-                .authorizedGrantTypes("authorization_code")
-                .scopes("app");
+//        clients.inMemory()
+//                .withClient("client")
+//                .secret("secret")
+//                .authorizedGrantTypes("authorization_code")
+//                .scopes("app");
     }
 }

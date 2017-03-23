@@ -1,9 +1,8 @@
 package com.spring.cloud.controller;
 
-import com.spring.cloud.service.LoginService;
+import com.spring.cloud.service.ComputeClient;
+import com.spring.cloud.service.LoginClient;
 import io.swagger.annotations.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api("LoginController.Api")
-public class LoginController extends BaseController {
-
-    private final Logger logger = LogManager.getLogger(this.getClass());
+public class LoginController extends BaseController{
 
     @Autowired
-    private LoginService loginService;
+    private LoginClient loginClient;
+
+    @Autowired
+    private ComputeClient computeClient;
 
     @ApiOperation("登录接口")
     @ApiImplicitParams({
@@ -33,7 +33,25 @@ public class LoginController extends BaseController {
     })
     @RequestMapping(value = "login")
     public Object login(String username, String password) {
-        logger.info("接收参数:{}", String.format("%s;%s", username, password));
-        return loginService.login(username, password);
+        return loginClient.login(username, password);
     }
+
+
+    @ApiOperation("登录接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "username", dataType = "String", required = true, value =
+                    "登录名"),
+            @ApiImplicitParam(paramType = "query", name = "password", dataType = "String", required = true, value =
+                    "密码")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "请求参数没填好"),
+            @ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对")
+    })
+    @RequestMapping(value = "loginOut")
+    public Object loginOut(String username, String password) {
+        return computeClient.login(username, password);
+    }
+
+
 }

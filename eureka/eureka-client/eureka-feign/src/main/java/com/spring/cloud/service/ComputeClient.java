@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "compute-service",fallback = ComputeClientHystrix.class)
+@FeignClient(value = "compute-service", fallback = ComputeClientHystrix.class)
 public interface ComputeClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/add")
     Integer add(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b);
 
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    Object login(@RequestParam(value = "userName") String username, @RequestParam(value = "password") String password);
 }
