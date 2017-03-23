@@ -53,7 +53,7 @@
 
     <loggers>
         <!--过滤掉spring和hibernate的一些无用的debug信息-->
-        <!--<logger name="org.springframework" level="INFO"/>-->
+        <logger name="org.springframework" level="WARN"/>
         <!--<logger name="org.springframework.cloud.client.discovery" level="WARN"/>-->
         <!--<logger name="org.apache.http.impl.conn" level="WARN"/>-->
         <!--<logger name="org.hibernate" level="INFO"/>-->
