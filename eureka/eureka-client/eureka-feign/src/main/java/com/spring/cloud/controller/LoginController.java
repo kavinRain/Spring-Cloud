@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api("LoginController.Api")
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
 
     @Autowired
     private LoginClient loginClient;
@@ -52,6 +52,4 @@ public class LoginController extends BaseController{
     public Object loginOut(String username, String password) {
         return computeClient.login(username, password);
     }
-
-
 }
