@@ -11,7 +11,4 @@ public interface ComputeClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/add")
     Integer add(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b);
-
-    @RequestMapping(method = RequestMethod.POST, value = "/login")
-    Object login(@RequestParam(value = "userName") String username, @RequestParam(value = "password") String password);
 }

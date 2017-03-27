@@ -1,6 +1,5 @@
 package com.spring.cloud.controller;
 
-import com.spring.cloud.service.ComputeClient;
 import com.spring.cloud.service.LoginClient;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,6 @@ public class LoginController extends BaseController {
 
     @Autowired
     private LoginClient loginClient;
-
-    @Autowired
-    private ComputeClient computeClient;
 
     @ApiOperation("登录接口")
     @ApiImplicitParams({
@@ -36,20 +32,4 @@ public class LoginController extends BaseController {
         return loginClient.login(username, password);
     }
 
-
-    @ApiOperation("登录接口")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", name = "username", dataType = "String", required = true, value =
-                    "登录名"),
-            @ApiImplicitParam(paramType = "query", name = "password", dataType = "String", required = true, value =
-                    "密码")
-    })
-    @ApiResponses({
-            @ApiResponse(code = 400, message = "请求参数没填好"),
-            @ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对")
-    })
-    @RequestMapping(value = "loginOut")
-    public Object loginOut(String username, String password) {
-        return computeClient.login(username, password);
-    }
 }
