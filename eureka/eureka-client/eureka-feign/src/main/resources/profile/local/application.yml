@@ -10,6 +10,5 @@ eureka:
   instance:
     prefer-ip-address: true
     instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
-    non-secure-port: ${server.port}
 logging:
   config: classpath:log4j2.xml
