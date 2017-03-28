@@ -10,7 +10,7 @@
     <version>${project.version}</version>
     <modules>
         <module>compute</module>
-        <module>config</module>
+        <module>config-server</module>
         <module>eureka</module>
         <module>spring-security-oauth2</module>
     </modules>
