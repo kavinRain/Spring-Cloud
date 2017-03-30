@@ -83,30 +83,6 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <prop.dir.name>local</prop.dir.name>
-            </properties>
-        </profile>
-        <profile>
-            <id>sit</id>
-            <properties>
-                <prop.dir.name>sit</prop.dir.name>
-            </properties>
-        </profile>
-        <profile>
-            <id>online</id>
-            <properties>
-                <prop.dir.name>online</prop.dir.name>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>
@@ -114,14 +90,5 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <filtering>true</filtering>
-                <directory>src/main/resources/profile/${prop.dir.name}</directory>
-                <includes>
-                    <include>*</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 </project>

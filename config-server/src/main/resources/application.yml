@@ -1,0 +1,20 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: config-server
+  cloud:
+      config:
+        server:
+          git:
+            uri: http://git.oschina.net/kwhdlp1314/spring-cloud-config-repo/
+            username: kwhdlp1314
+            password: dlpdlp521dlp
+            search-paths: '{application}'
+logging:
+  config: classpath:log4j2.xml
+
+security:
+  user:
+    name: user
+    password: 37cc5635-559b-4e6f-b633-7e932b813f73

@@ -1,0 +1,14 @@
+server:
+  port: 2221
+#  context-path: /csapi
+spring:
+  application:
+    name: compute-service
+  cloud:
+    config:
+      uri: http://localhost:7001/
+      profile: local
+      username: user
+      password: 37cc5635-559b-4e6f-b633-7e932b813f73
+logging:
+  config: classpath:log4j2.xml
