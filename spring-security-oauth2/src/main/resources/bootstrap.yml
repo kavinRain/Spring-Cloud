@@ -2,6 +2,7 @@ server:
   port: 4001
   session:
     timeout: 300
+  context-path: /uaa
 
 spring:
   application:
@@ -13,5 +14,5 @@ spring:
       username: user
       password: 37cc5635-559b-4e6f-b633-7e932b813f73
 
-logging:
-  config: classpath:log4j2.xml
+#logging:
+#  config: classpath:log4j2.xml
