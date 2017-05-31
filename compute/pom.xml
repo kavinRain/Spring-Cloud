@@ -16,6 +16,7 @@
     <modules>
         <module>compute-service1</module>
         <module>compute-service2</module>
+        <module>vue-web</module>
     </modules>
 
     <dependencies>
