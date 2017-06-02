@@ -1,22 +1,20 @@
 package com.vue.web.ui.controller;
 
+import com.vue.web.ui.common.beans.Result;
+import com.vue.web.ui.common.enums.ResultType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Administrator on 2017/5/31.
  */
-@Controller
+@RestController
 public class LoginController {
 
-    @GetMapping("login")
-    public String login() {
-        return "/login";
-    }
-
     @PostMapping("login")
-    public String login(String username, String password) {
-        return "redirect:/login";
+    public Result<Object> login(String username, String password) {
+        return new Result<Object>(ResultType.SUCCESS, null);
     }
 }
