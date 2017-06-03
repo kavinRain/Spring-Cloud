@@ -5,6 +5,7 @@ import com.vue.web.ui.service.hystrix.LoginServiceHystrix;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by Administrator on 2017/6/3.
@@ -13,5 +14,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface LoginService {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    Result<String> login(String username, String password);
+    Result<String> login(@RequestParam("username") String username, @RequestParam("password") String password);
 }

@@ -5,7 +5,11 @@ import com.spring.cloud.common.enums.ResultType;
 import com.vue.web.ui.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Administrator on 2017/5/31.
@@ -17,8 +21,16 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("login")
-    public Result<Object> login(String username, String password) {
-        Result<String> result = loginService.login(username,password);
-        return new Result<Object>(ResultType.SUCCESS,null);
+    public Result login(@RequestParam(defaultValue = "admin") String username, @RequestParam(defaultValue = "123456")
+            String password, HttpServletResponse response) {
+        Result<String> result = loginService.login(username, password);
+        if (result.getCode().equals(ResultType.SUCCESS.getCode())) {
+            Cookie cookie = new Cookie("token", String.valueOf(result.getObj()));
+            cookie.setSecure(Boolean.FALSE);
+            cookie.setMaxAge(1000);
+            response.addCookie(cookie);
+            result.setObj(null);
+        }
+        return result;
     }
 }

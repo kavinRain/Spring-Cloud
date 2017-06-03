@@ -20,6 +20,9 @@ public class Result<T extends Object> {
         obj = t;
     }
 
+    public Result() {
+    }
+
     public Integer getCode() {
         return code;
     }
