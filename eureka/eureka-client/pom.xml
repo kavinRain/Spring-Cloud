@@ -14,5 +14,6 @@
     <modules>
         <module>eureka-ribbon</module>
         <module>eureka-feign</module>
+        <module>vue-web</module>
     </modules>
 </project>
