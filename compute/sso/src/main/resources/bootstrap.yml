@@ -1,6 +1,6 @@
 server:
   port: 2224
-#  context-path: /sso
+  context-path: /sso
 spring:
   application:
     name: sso
