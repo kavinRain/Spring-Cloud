@@ -95,4 +95,32 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <cloud-config-url>http://localhost:7001/</cloud-config-url>
+                <profile>local</profile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <cloud-config-url>http://10.143.253.56:7001/</cloud-config-url>
+                <profile>test</profile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>production</id>
+            <properties>
+
+            </properties>
+        </profile>
+    </profiles>
+
 </project>

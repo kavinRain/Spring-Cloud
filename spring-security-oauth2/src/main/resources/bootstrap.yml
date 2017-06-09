@@ -9,8 +9,8 @@ spring:
     name: spring-securtity-oauth2
   cloud:
     config:
-      uri: http://localhost:7001/
-      profile: local
+      uri: @cloud-config-url@
+      profile: @profile@
       username: user
       password: 37cc5635-559b-4e6f-b633-7e932b813f73
 
